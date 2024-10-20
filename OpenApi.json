@@ -1,0 +1,287 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Articles",
+    "description": "Articles",
+    "termsOfService": "",
+    "contact": {
+      "name": "Articles",
+      "email": "the.hector2603@gmail.com"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://gapsi-test.uc.r.appspot.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Articles",
+      "description": "API for managing articles"
+    }
+  ],
+  "paths": {
+    "/articles/{id}": {
+      "get": {
+        "tags": [
+          "Articles"
+        ],
+        "summary": "Get article details",
+        "description": "Returns the details of an article by its ID.",
+        "operationId": "getArticleById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the article, must be alphanumeric and 10 characters long",
+            "required": true,
+            "schema": {
+              "maxLength": 10,
+              "minLength": 10,
+              "pattern": "^[a-zA-Z0-9]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                },
+                "examples": {
+                  "Success Example": {
+                    "summary": "Example of successful response",
+                    "description": "Success Example",
+                    "value": {
+                      "article": {
+                        "id": "A12345B678",
+                        "name": "Laptop",
+                        "description": "A high-performance laptop for coding and gaming.",
+                        "price": 1200.5,
+                        "model": "Model-X1"
+                      },
+                      "message": null,
+                      "code": null,
+                      "errors": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Article not found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Error Example": {
+                    "summary": "Example of 404 error response",
+                    "description": "Error Example",
+                    "value": {
+                      "message": "Not Found",
+                      "code": "ERR-404",
+                      "errors": {
+                        "404 NOT_FOUND": "Article with ID A12345B67 not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Internal Server Error Example": {
+                    "summary": "Example of 500 error response",
+                    "description": "Internal Server Error Example",
+                    "value": {
+                      "article": null,
+                      "message": "Internal Server Error",
+                      "code": "ERR-500",
+                      "errors": {
+                        "500 INTERNAL_SERVER_ERROR": "Could not open JPA EntityManager for transaction"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Articles"
+        ],
+        "summary": "Update article details",
+        "description": "Partially updates the details of the article, such as description and model.",
+        "operationId": "updateArticle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the article, must be alphanumeric and 10 characters long",
+            "required": true,
+            "schema": {
+              "maxLength": 10,
+              "minLength": 10,
+              "pattern": "^[a-zA-Z0-9]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateArticleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Article updated successfully"
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Bad Request Example": {
+                    "summary": "Example of 400 Bad Request",
+                    "description": "Bad Request Example",
+                    "value": {
+                      "article": null,
+                      "message": "Invalid Request",
+                      "code": "ERR-400",
+                      "errors": {
+                        "description": "description cannot be blank",
+                        "model": "model cannot exceed 10 characters"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Article not found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Error Example": {
+                    "summary": "Example of 404 error response",
+                    "description": "Error Example",
+                    "value": {
+                      "message": "Not Found",
+                      "code": "ERR-404",
+                      "errors": {
+                        "404 NOT_FOUND": "Article with ID A12345B67 not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Internal Server Error Example": {
+                    "summary": "Example of 500 error response",
+                    "description": "Internal Server Error Example",
+                    "value": {
+                      "article": null,
+                      "message": "Internal Server Error",
+                      "code": "ERR-500",
+                      "errors": {
+                        "500 INTERNAL_SERVER_ERROR": "Could not open JPA EntityManager for transaction"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UpdateArticleRequest": {
+        "required": [
+          "description",
+          "model"
+        ],
+        "type": "object",
+        "properties": {
+          "description": {
+            "maxLength": 200,
+            "minLength": 0,
+            "type": "string"
+          },
+          "model": {
+            "maxLength": 10,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "description": "Object containing the fields to update"
+      },
+      "ArticleResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "model": {
+            "type": "string"
+          }
+        }
+      },
+      "BaseResponse": {
+        "type": "object",
+        "properties": {
+          "article": {
+            "$ref": "#/components/schemas/ArticleResponse"
+          },
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

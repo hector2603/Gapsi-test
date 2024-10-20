@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "ceaf8577-17e9-4d65-87e3-3fdd9f321a0a",
+		"name": "Articles Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10263104"
+	},
+	"item": [
+		{
+			"name": "Get Article",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://gapsi-test.uc.r.appspot.com/articles/A12345B678",
+					"protocol": "http",
+					"host": [
+						"gapsi-test",
+						"uc",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"articles",
+						"A12345B678"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update ARticle",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"string\",\n  \"model\": \"string\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://gapsi-test.uc.r.appspot.com/articles/A12345B678",
+					"protocol": "http",
+					"host": [
+						"gapsi-test",
+						"uc",
+						"r",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"articles",
+						"A12345B678"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
