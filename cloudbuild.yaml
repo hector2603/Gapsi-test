@@ -1,0 +1,13 @@
+steps:
+  - name: 'gradle:7.5.1-jdk17'
+    entrypoint: 'gradle'
+    args: ['build']
+
+  # Step to deploy to App Engine
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['app', 'deploy', 'app.yaml']
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+timeout: "1600s"
